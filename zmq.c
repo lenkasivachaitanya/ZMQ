@@ -18,6 +18,12 @@ zmq_bind(sock, "tcp://*:1122");
 zmq_setsockopt(zmq->bsmrxsocket, ZMQ_SUBSCRIBE, "sample", 7);
 /* In PUB-SUB message pattern we need to tell the topic name for the subscribers to get the data here the payload starting with sample name will be recievd by the  subscribers.*/
 
+zmq_send(txsocket,req, sizeof(struct bct_req), 0);
+/* In this we are sending a structure through txsocket with size of that strcture and fourth argument will be your flag to modify the behaviour */
+
+zmq_recv(rxsocket, r_buff, sizeof(r_buff), 0);
+/* In this we are receiving a structure through rxsocket with size of that strcture and fourth argument will be your flag to modify the behaviour */
+
 zmq_close(zmq->bsmrxsocket);
 zmq_ctx_destroy(zmq->context);
 /* For closing the socket and destroying the context */
